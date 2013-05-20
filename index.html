@@ -1,0 +1,142 @@
+
+<html>
+    <head>
+      <title>My Facebook Login Page</title>
+    </head>
+    <body onLoad="">
+      <div id="fb-root"></div>
+      <!-- LOGIN BUTTON -->
+      
+      <script>
+/*
+        (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=116217758578406";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+*/      
+      </script>
+<!--
+      <div class="fb-login-button" data-show-faces="false" data-width="200" data-max-rows="1"></div>
+-->
+      <div id="news">
+        <ul id="newsList">
+        </ul>
+      </div>
+      <script>
+        
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://localhost/socfast/channel.html', // Channel File
+            //status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+          });
+        };
+        
+        // Load the SDK Asynchronously
+        
+        (function(d){
+           var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement('script'); js.id = id; js.async = true;
+           js.src = "//connect.facebook.net/es_LA/all.js";
+           ref.parentNode.insertBefore(js, ref);
+         }(document));
+        
+
+        function checkLogin() {
+          FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+              // connected
+              testAPI();
+            } else if (response.status === 'not_authorized') {
+              // not_authorized
+              console.log("NA");
+            } else {
+              // not_logged_in
+              console.log("NL");
+            }
+           });
+        }
+
+
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me/home', function(response) {
+              console.log(response);
+                for (var i = 0, len = response.data.length; i < len; i++) {                  
+                  var statusType= response.data[i].status_type;
+                  var mensaje = "";
+                  var imgSmall = "";
+                  var imgUrl = "";
+
+                  if (typeof statusType !== "undefined") {
+
+                      //STATUS
+                    if ( (statusType.indexOf("status") !== -1) ) {
+                      if (typeof response.data[i].message !== "undefined") {
+                        mensaje = response.data[i].message;
+                      }
+                    }
+                      //WALL_POST
+                    if ( (statusType.indexOf("wall_post") !== -1) ) {
+                       if (typeof response.data[i].message !== "undefined") {
+                        mensaje = response.data[i].message;
+                      }                     
+                    }                      
+
+                      //SHARED_STORY
+                    if (statusType.indexOf("shared_story") !== -1) {
+                      if (typeof response.data[i].message !== "undefined") {
+                        mensaje = response.data[i].message;
+                      } else if (response.data[i].description !== "undefined") {
+                        mensaje = response.data[i].description;
+                      } else {
+                        mensaje = "";
+                      }
+                    }
+
+                      //TYPE
+                    if (response.data[i].type == "video" || response.data[i].type == "swf") {                      
+                      imgSmall = "img/video_48.PNG";
+                      imgUrl = response.data[i].source;
+                      if (response.data[i].name !== "undefined") {
+                        mensaje = response.data[i].name;
+                      }                      
+                    } else if (response.data[i].type == "photo") {
+                      imgSmall = "img/photo_48.PNG";
+                      imgUrl = response.data[i].link;
+                    } else if ( response.data[i].type == "link" ) {
+                      imgSmall = "img/link_48.PNG";
+                      imgUrl = response.data[i].link;
+                    }                    
+                  }
+
+                  $("#newsList").append(
+                      "<li> <b>" +  i + "-" + response.data[i].from.name +"</b>: "+ mensaje + " <a href='"+ imgUrl +"'><img src='"+ imgSmall +"'/><a></li>"
+                    );
+                };
+            });
+        }
+
+        function login() {
+          FB.login(function(response) {
+              if (response.authResponse) {
+                  alert('Logged in and accepted permissions!');
+              }
+          }, {scope:'read_stream'});          
+        }
+
+
+      </script>
+      <input type="button" onclick="checkLogin();" value="Ingresar"></input>
+<!--
+      <div class="fb-login-button">Login with Facebook</div>
+-->
+    <script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
+    </body>
+ </html>

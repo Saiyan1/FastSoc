@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	var fecha = "";
+	var now = new Date();
+	var milisFB = Date.parse('2013-05-05T07:13:28+0000');
+	var fechaFB = new Date(milisFB);
+	var difMilis = Math.abs(now - milisFB);
+	var segundos = Math.round(difMilis / 1000);
+	if ( segundos < 60  )	{
+		fecha = "Hace menos de un minuto";
+	} else if ( segundos < 3600 ) {
+		fecha = "Hace " + Math.round(segundos / 60) + " minutos";
+	} else if ( segundos >= 3600 && segundos < 86400 ) {
+		fecha = "A las " + fechaFB.getHours() + ":" + (fechaFB.getMinutes()<10?'0':'') + fechaFB.getMinutes() + ".";
+	} else if ( segundos >= 86400 ) {
+		fecha = fechaFB.toLocaleString();
+	}
+	//return fecha;
+	console.log( fecha );
+</script>
+

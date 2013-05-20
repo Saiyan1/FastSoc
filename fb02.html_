@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>FastSocial</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-responsive.css">
+      <script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+      
+      <style type="text/css">
+        body.connected #logout { display: block; }
+        body.connected #login { display: none; }
+        #logout { display: none; }
+        #login { display: block; }
+
+        html { background: transparent }
+
+        body {
+          font: Verdana, Helvetica, Arial, Verdana, sans-serif;
+          padding-right: 10px;
+          padding-left: 10px;          
+          background-color: #e5e5e5;
+          line-height: 1.38;
+        }
+         .fondoA {
+          background-color: #FFFFFF;
+        }
+        p, span {        
+          font-size: 12px;
+        }
+        #autor {
+          font-weight: bold;
+        }
+        #mensaje {        
+          color: #333;
+          font-size: 13px;          
+          font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+        }
+        .contNew {
+          /*border: thin solid rgba(210, 206, 206, 1);*/
+          padding: 11px;
+          margin: 6px;
+          margin-left: 10px;
+          -webkit-box-shadow:  0px 4px 2px -2px rgba(210, 206, 206, 1);
+          box-shadow:  0px 4px 2px -2px rgba(210, 206, 206, 1); 
+        }
+
+        .imagedropshadow {
+          padding: 5px;
+          border: solid 1px #e5e5e5;
+        }
+        a:hover img.imagedropshadow {
+          border: solid 1px #CCC;
+          -moz-box-shadow: 1px 1px 5px #999;
+          -webkit-box-shadow: 1px 1px 5px #999;
+                box-shadow: 1px 1px 5px #999;
+        }
+        #fecha {
+          color: #999;
+          font-size: 11px;
+          padding-top: 5px;
+          font-style: italic;
+        }
+      </style>
+  </head>
+
+  <body>
+
+    <div id="fb-root"></div>
+
+    <!-- NAVBAR -->
+          <div id="logout">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="#">FastSocial</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse">                    
+                      <ul class="nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="#" onClick="cerrarSesion();">Cerrar Sesion</a></li>
+                    </ul>                    
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+          </div>
+    <!-- FIN NAVBAR -->
+
+    <div id="login">
+      <p><button  onClick="loginUser();">Entrar</button></p>
+    </div>  
+
+    <div id="loading" align="center" style="display:none;">
+      <img src="img/loader.gif">
+    </div>
+
+    <div class="row-fluid fila" id="fila0" style="display:none">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">                
+                <a id="iconLink" href="#" target="_blank">
+                  <img id="iconType" src="" align="right" width="48px" class="imagedropshadow">
+                </a>
+                <div id="autor">
+                </div><span id="fecha" align="left"></span>
+                <p id="mensaje">       
+                </p>
+              </div>
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div>    
+
+    <script type="text/javascript">
+      var c = 0;
+      function cargarNews(autor, mensaje, imgSrc, iconLink, updatedTime) {
+        //console.log(autor +" "+ mensaje +" "+ imgSrc);   
+        var klon = $( '#fila0' );
+        var cloned = klon.clone(true);
+        cloned.attr('id', 'fila'+(++c) );
+        cloned.find("#autor").text(autor);
+        cloned.find("#mensaje").text(translate(mensaje));
+        cloned.find("#fecha").text(showFecha(updatedTime));
+        if (imgSrc.length < 1) {
+          cloned.find("#iconType").remove();
+         } else {
+          cloned.find("#iconType").attr("src", imgSrc);
+        }
+        cloned.find("#iconLink").attr("href", iconLink);
+        cloned.attr("style", "visible:block");
+        $(cloned).insertAfter( $('#fila'+ (c-1) ) );
+        $("#loading").hide();
+      }
+      function cerrarSesion() {
+        FB.logout(function(response) {
+          location.reload();
+        });
+      }
+
+      function showFecha(fechaFromFB) {
+        var fecha = "";
+        var now = new Date();
+        var milisFB = Date.parse(fechaFromFB);
+        var fechaFB = new Date(milisFB);
+        var difMilis = Math.abs(now - milisFB);
+        var segundos = Math.round(difMilis / 1000);
+        if ( segundos < 60  ) {
+          fecha = "Hace menos de un minuto";
+        } else if ( segundos < 3600 ) {
+          fecha = "Hace " + Math.round(segundos / 60) + " minutos";
+        } else if ( segundos >= 3600 && segundos < 86400 ) {
+          fecha = "A las " + fechaFB.getHours() + ":" + (fechaFB.getMinutes()<10?'0':'') + fechaFB.getMinutes() + ".";
+        } else if ( segundos >= 86400 ) {
+          fecha = fechaFB.toLocaleString();
+        }
+        return fecha;
+      }
+
+    </script>
+
+  <script type="text/javascript">
+    window.fbAsyncInit = function() {      
+      FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://gustavoinsaurralde.com.ar/socfast/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+
+        FB.Event.subscribe('auth.statusChange', handleStatusChange);
+      };
+
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
+
+      function loginUser() {        
+        FB.login(function(response) { }, {scope:'read_stream'});        
+        }
+
+      function handleStatusChange(response) {
+          document.body.className = response.authResponse ? 'connected' : 'not_connected';
+          if (response.authResponse) {
+            //console.log(response);
+            testAPI();
+          }
+        }
+
+      function testAPI() {        
+          $("#loading").show();
+/*
+            var len = 25;
+            for (var i=0; i<len; i++) {
+              cargarNews("Gustavo Insaurralde", "Lorem Ipsum", "img/photo.png", "", "2013-05-05T05:26:01+0000");          
+              }
+*/
+
+          FB.api(
+            '/me/home',
+            function(response) {
+              console.log(response);
+              var len = response.data.length;
+              for (var i=0; i<len; i++) {
+//                cargarNews("Gustavo Insaurralde", "Lorem Ipsum", "img/photo.png", "", "");
+                var mensaje = "";
+                var imgSmall = "";
+                var imgUrl = "";
+                var updatedTime = "";
+                if ( typeof response.data[i].message !== "undefined") {
+                  mensaje = response.data[i].message;
+                  } else if ( typeof response.data[i].description !== "undefined") {
+                    mensaje = response.data[i].description;
+                    } else if ( typeof response.data[i].caption !== "undefined") {
+                      mensaje = response.data[i].caption;
+                      } else if ( typeof response.data[i].story !== "undefined") {
+                        mensaje = response.data[i].story;
+                      }
+
+/*
+                if (response.data[i].status_type == "added_photos") {
+                  if ( typeof response.data[i].message === "undefined") {
+                    mensaje = response.data[i].story;
+                  }                  
+                }
+
+                if (response.data[i].status_type == "shared_story") {
+                  if ( typeof response.data[i].message === "undefined") {
+                    if ( typeof response.data[i].caption !== "undefined") {
+                      mensaje = response.data[i].caption;
+                    } else if ( typeof response.data[i].story !== "undefined" ) {
+                      mensaje = response.data[i].story;
+                    }                    
+                  }
+                }
+*/
+                  //TYPE
+                if (response.data[i].type == "video" || response.data[i].type == "swf") {                     
+                  imgSmall = "img/video.png";
+                  imgUrl = response.data[i].source;
+                  if (typeof response.data[i].name !== "undefined") {
+                    mensaje = response.data[i].name;
+                    }                      
+                  } else if (response.data[i].type == "photo") {
+                      imgSmall = "img/photo.png";
+                      imgUrl = response.data[i].link;
+                      } else if ( response.data[i].type == "link" ) {
+                        imgSmall = "img/link.png";
+                        imgUrl = response.data[i].link;
+                        } else if ( response.data[i].type == "status" ) {
+                          //imgSmall = "";
+                        }
+
+                var iconLink = "";
+                if (typeof response.data[i].link !== "undefined") {
+                  iconLink = response.data[i].link;
+                  }
+                if (typeof response.data[i].updated_time !== "undefined") {
+                  updatedTime = response.data[i].updated_time;
+                }
+              cargarNews(response.data[i].from.name, mensaje, imgSmall, iconLink, updatedTime);
+              //cargarNews(response.data[i].from.name, i +"-"+ mensaje, imgSmall, iconLink, updatedTime);
+              };
+          });
+
+      }
+   
+   function translate(texto) {
+    var textoTraducido = "";
+    textoTraducido = texto.replace("changed his profile picture","ha cambiado su foto de perfil");
+    textoTraducido = texto.replace("changed her profile picture","ha cambiado su foto de perfil");
+    textoTraducido = texto.replace(" shared "," ha compartido ");
+    textoTraducido = texto.replace("commented on his own post"," ha comentado su propio articulo");       
+    return textoTraducido;
+   }
+
+/*
+        function login() {
+          FB.login(function(response) {
+              if (response.authResponse) {
+                  alert('Logged in and accepted permissions!');
+              }
+          }, {scope:'read_stream'});          
+        }       
+        */         
+  </script>    
+
+  </body>
+</html>

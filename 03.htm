@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://localhost/socfast/fb02 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Bootstrap 101 Template</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="http://localhost/socfast/bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="http://localhost/socfast/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <script id="facebook-jssdk" async="" src="./03_files/all.js"></script><script type="text/javascript" src="./03_files/jquery-1.9.1.min.js"></script>
+      <script src="./03_files/bootstrap.min.js"></script>
+
+      <style type="text/css">
+        body.connected #logout { display: block; }
+        body.connected #login { display: none; }
+        #logout { display: none; }
+        #login { display: block; }
+
+        html { background: transparent }
+
+        body {
+          font: Verdana, Helvetica, Arial, Verdana, sans-serif;
+          padding-right: 6px;
+          padding-left: 6px;          
+          background-color: #e5e5e5;
+        }
+         .fondoA {
+          background-color: #FFFFFF;
+        }
+        p, span {        
+          font-size: 12px;
+        }
+        #autor {
+          font-weight: bold;
+        }
+        #mensaje {        
+          color: #333;
+          font-size: 13px;
+          line-height: 1.38;
+          font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+        }
+        .contNew {
+          /*border: thin solid rgba(210, 206, 206, 1);*/
+          padding: 11px;
+          margin: 6px;
+          margin-left: 10px;
+          -webkit-box-shadow:  0px 4px 2px -2px rgba(210, 206, 206, 1);
+          box-shadow:  0px 4px 2px -2px rgba(210, 206, 206, 1); 
+        }
+
+        .imagedropshadow {
+          padding: 5px;
+          border: solid 1px #e5e5e5;
+        }
+        a:hover img.imagedropshadow {
+          border: solid 1px #CCC;
+          -moz-box-shadow: 1px 1px 5px #999;
+          -webkit-box-shadow: 1px 1px 5px #999;
+                box-shadow: 1px 1px 5px #999;
+        }
+      </style>
+  <style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border-spacing:0;border:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+/* @noflip */
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+/* @noflip */
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+/* @noflip */
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+/* @noflip */
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;left:-10000px;overflow:visible;position:absolute;top:-10000px;width:100%
+}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0 0, 0 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0 0, 0 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+/* @noflip */
+.fbpluginrecommendationsbarleft{left:10px}
+/* @noflip */
+.fbpluginrecommendationsbarright{right:10px}</style></head>
+
+  <body class="connected">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" style="border: none;" src="./03_files/xd_arbiter.htm"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" style="border: none;" src="./03_files/xd_arbiter(1).htm"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+
+    <!-- NAVBAR -->
+          <div id="logout">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="http://localhost/socfast/fb02#">FastSocial</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse">                    
+                      <ul class="nav">
+                      <li class="active"><a href="http://localhost/socfast/fb02#">Home</a></li>
+                      <li><a href="http://localhost/socfast/fb02#" onclick="cerrarSesion();">Cerrar Sesion</a></li>
+                    </ul>                    
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+          </div>
+    <!-- FIN NAVBAR -->
+
+    <div id="login">
+      <p><button onclick="loginUser();">Entrar</button></p>
+    </div>  
+
+    <div id="loading" align="center" style="display: none;">
+      <img src="./03_files/loader.gif">
+    </div>
+
+    <div class="row-fluid fila" id="fila0" style="display:none">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://localhost/socfast/fb02#" target="_blank">
+                  <img id="iconType" src="" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">
+                </div>
+                <p id="mensaje">                  
+                </p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila25" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=592953047382371&set=a.592953040715705.1073741835.100000030433031&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Yenid Namor</div>
+                <p id="mensaje">Yenid Namor shared Fasp Paraprohibirlamegamineria's photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila24" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=242533852538431&set=a.242533429205140.1073741852.184344215024062&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Aldana Ruiz</div>
+                <p id="mensaje">Tu novia.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila23" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  
+                </a>
+                <div id="autor">Jaanet Andrade</div>
+                <p id="mensaje">tener amigas qe te llevan por mal camino...voy a tener qe salir!!!</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila22" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  
+                </a>
+                <div id="autor">STAR 98.3</div>
+                <p id="mensaje">Evans Road is CLOSED north of Highway 1 because of an earlier serious accident.  Traffic is being detoured.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila21" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://youtu.be/2MYnCCxEl2Y" target="_blank">
+                  <img id="iconType" src="./03_files/video_48.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Guillermo Fernandez</div>
+                <p id="mensaje">SOMOS MAS</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila20" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10151585194639549&set=a.10150260139629549.344445.26871794548&type=1&relevant_count=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">La Llama que llama</div>
+                <p id="mensaje">via PSY Gentleman</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila19" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=516894245013273&set=a.189236181112416.38550.189115941124440&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Claudia Lezcano</div>
+                <p id="mensaje">Claudia Lezcano shared No más K. Unamos nuestros votos.'s photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila18" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10151635813211942&set=a.10151109203906942.487826.381874896941&type=1&relevant_count=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">TVR</div>
+                <p id="mensaje">La marcha reunió a más de 50 mil personas, desde Plaza de Mayo hasta el Congreso. La premisa principal fue "no más presos por cultivar". Mirá el debate que se dió entre un cannabicultor y el presidente de la Asociación Antidrogas, Claudio Izaguirre.
+
+Mirá el video en: http://bit.ly/YvVjAs</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila17" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=4705736921734&set=a.3917073525642.2142468.1243607131&type=1&relevant_count=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Elena Schoj</div>
+                <p id="mensaje"></p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila16" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  
+                </a>
+                <div id="autor">Jesús Saldaña</div>
+                <p id="mensaje">Hoy futbol mañana maraton essa!!</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila15" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  <img id="iconType" src="./03_files/video_48.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Nelsinho Marinho</div>
+                <p id="mensaje">Salgueiro 2008 ao vivo na avenida. Bateria</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila14" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10200535215216429&set=a.10200535210416309.1073741826.1639723337&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Sabatino Palma</div>
+                <p id="mensaje">Sabatino Palma shared Monica Fudin's album: En el Borda también se vive...</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila13" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10151417770893175&set=a.10150207221803175.314135.38330023174&type=1&relevant_count=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Gomitas</div>
+                <p id="mensaje">&lt;3
+
+- Pablo Iwao -</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila12" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10151659802028816&set=a.483532668815.256403.90091503815&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Pablo E Monzon</div>
+                <p id="mensaje">Pablo E Monzon shared 678's photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila11" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=528177020561448&set=a.513176875394796.1073741826.513123678733449&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Lucrecia Vallejos</div>
+                <p id="mensaje">Lucrecia Vallejos shared Diccionario Correntino's photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila10" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=597596183584697&set=a.115969958413991.17486.114517875225866&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Pablo E Monzon</div>
+                <p id="mensaje">Pablo E Monzon shared The Other 98%'s photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila9" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  
+                </a>
+                <div id="autor">Matts Ruiz Diaz</div>
+                <p id="mensaje">y que hacemos esta noche ???</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila8" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=541120679267314&set=a.192189887493730.49271.123789324333787&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Gomitas</div>
+                <p id="mensaje">A la mierda todo...
+
+- Pablo Iwao -</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila7" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10152787379715224&set=a.303858495223.329167.303147460223&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Pablo E Monzon</div>
+                <p id="mensaje">Pablo E Monzon shared El Campito Refugio's photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila6" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=494338493967277&set=a.328434777224317.75065.100001733917446&type=1&relevant_count=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Joni DelaSerna</div>
+                <p id="mensaje">Joni DelaSerna added a new photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila5" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://lostrolls.com/lol/5915" target="_blank">
+                  <img id="iconType" src="./03_files/link_48.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">La Llama que llama</div>
+                <p id="mensaje">Si un costarricense descarga una película...</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila4" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=10150717998865224&set=a.10150717998450224.717601.303147460223&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Pablo E Monzon</div>
+                <p id="mensaje">Pablo E Monzon shared El Campito Refugio's photo.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila3" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=333034856823005&set=a.241930959266729.56914.241929422600216&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">David Ríos</div>
+                <p id="mensaje">Nerd...pero copado!</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila2" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="" target="_blank">
+                  
+                </a>
+                <div id="autor">Javier Luquez Toledo</div>
+                <p id="mensaje">Impresionante Día de Filmación en Pto Tirol: Gracias a todos los que participaron de la filmación de este corto de Viedo Danza "OLIMPO GUARANI" 
+Nada ni nadie detiene a los artistas....
+Mientras haya ARTE reinara EROS; y NO TANATOS</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div><div class="row-fluid fila" id="fila1" style="visible:block">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <a id="iconLink" href="http://www.facebook.com/photo.php?fbid=394655427315416&set=a.255654587882168.57028.255649757882651&type=1" target="_blank">
+                  <img id="iconType" src="./03_files/photo.png" align="right" width="50px" class="imagedropshadow">
+                </a>
+                <div id="autor">Nelsinho Marinho</div>
+                <p id="mensaje">Nelsinho Marinho posted a photo to Tiki Hermoso's timeline.</p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div>    
+
+    <script type="text/javascript">
+      var c = 0;
+      function cargarNews(autor, mensaje, imgSrc, iconLink) {
+        //console.log(autor +" "+ mensaje +" "+ imgSrc);
+        var klon = $( '#fila' + 0 );
+        var cloned = klon.clone(true);
+        cloned.attr('id', 'fila'+(++c) );
+        cloned.find("#autor").text(autor);
+        cloned.find("#mensaje").text(mensaje);
+        console.log("-" + imgSrc.length + "-");
+        if (imgSrc.length < 1) {
+          cloned.find("#iconType").remove();
+         } else {
+          cloned.find("#iconType").attr("src", imgSrc);
+        }
+        cloned.find("#iconLink").attr("href", iconLink);
+        cloned.attr("style", "visible:block");
+        $(cloned).insertAfter(klon);
+        $("#loading").hide();
+      }
+      function cerrarSesion() {
+        FB.logout(function(response) {
+          location.reload();
+        });
+      }      
+    </script>
+
+  <script type="text/javascript">
+    window.fbAsyncInit = function() {
+      FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://localhost/socfast/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+
+        FB.Event.subscribe('auth.statusChange', handleStatusChange);
+      };
+
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
+
+      function loginUser() {        
+        FB.login(function(response) { }, {scope:'read_stream'});        
+        }
+
+      function handleStatusChange(response) {
+          document.body.className = response.authResponse ? 'connected' : 'not_connected';
+          if (response.authResponse) {
+            //console.log(response);
+            testAPI();
+          }
+        }
+
+      function testAPI() {
+          $("#loading").show();
+          FB.api(
+            '/me/home',
+            function(response) {
+              console.log(response);
+              var len = response.data.length;
+//                var len = 25;
+              for (var i=0; i<len; i++) {
+//                cargarNews("Gustavo Insaurralde", "Lorem Ipsum", "img/photo_48.png", "");
+
+                var mensaje = "";
+                var imgSmall = "";
+                var imgUrl = "";
+                if ( typeof response.data[i].message !== "undefined") {
+                  mensaje = response.data[i].message;
+                  } else if ( typeof response.data[i].description !== "undefined") {
+                  mensaje = response.data[i].description;
+                  }
+
+                if (response.data[i].status_type == "added_photos") {
+                  if ( typeof response.data[i].message === "undefined") {
+                    mensaje = response.data[i].story;
+                  }                  
+                }
+
+                if (response.data[i].status_type == "shared_story") {
+                  if ( typeof response.data[i].message === "undefined") {
+                    mensaje = response.data[i].story;
+                  }                  
+                }
+
+                  //TYPE
+                if (response.data[i].type == "video" || response.data[i].type == "swf") {                     
+                  imgSmall = "img/video_48.png";
+                  imgUrl = response.data[i].source;
+                  if (typeof response.data[i].name !== "undefined") {
+                    mensaje = response.data[i].name;
+                    }                      
+                  } else if (response.data[i].type == "photo") {
+                      imgSmall = "img/photo.png";
+                      imgUrl = response.data[i].link;
+                      } else if ( response.data[i].type == "link" ) {
+                        imgSmall = "img/link_48.png";
+                        imgUrl = response.data[i].link;
+                        } else if ( response.data[i].type == "status" ) {
+                          //imgSmall = "";
+                        }
+
+                var iconLink = "";
+                if (typeof response.data[i].link !== "undefined") {
+                  iconLink = response.data[i].link;
+                  }
+
+              cargarNews(response.data[i].from.name, /*i +"-"+*/ mensaje, imgSmall, iconLink);
+
+              };
+          });
+      }
+   
+/*
+        function login() {
+          FB.login(function(response) {
+              if (response.authResponse) {
+                  alert('Logged in and accepted permissions!');
+              }
+          }, {scope:'read_stream'});          
+        }       
+        */         
+  </script>    
+
+  
+</body></html>

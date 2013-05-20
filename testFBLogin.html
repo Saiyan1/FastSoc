@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title>Hello World</title>
+</head>
+<body>
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://localhost/socfast/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+	    });
+
+	    FB.Event.subscribe('auth.statusChange', handleStatusChange);
+	  };
+
+	  // Load the SDK Asynchronously
+	  (function(d){
+	     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement('script'); js.id = id; js.async = true;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     ref.parentNode.insertBefore(js, ref);
+	   }(document));
+	</script>	
+
+	 <div id="login">
+	   <p><button onClick="loginUser();">Login</button></p>
+	 </div>
+	 <div id="logout">
+	   <p><button  onClick="FB.logout();">Logout</button></p>
+	 </div>
+
+	 <script>
+	   function loginUser() {    
+	     FB.login(function(response) { }, {scope:'email'});     
+	     }     
+	 </script>	
+
+ <script>
+  function handleStatusChange(response) {
+      document.body.className = response.authResponse ? 'connected' : 'not_connected';
+      if (response.authResponse) {
+        console.log(response);
+
+        updateUserInfo(response);
+      }
+    }
+ </script>
+
+</body>
+</html>
+
+<style>
+  body.connected #login { display: none; }
+  body.connected #logout { display: block; }
+  body.not_connected #login { display: block; }
+      body.not_connected #logout { display: none; }
+</style>
+
+ <div id="user-info"></div>
+ <script>
+   function updateUserInfo(response) {
+     FB.api('/me', function(response) {
+       document.getElementById('user-info').innerHTML = '<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+     });
+   }
+ </script>

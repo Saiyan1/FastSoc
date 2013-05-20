@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
+      <script src="bootstrap/js/bootstrap.min.js"></script>
+
+      <style type="text/css">
+        body.connected #logout { display: block; }
+        body.connected #login { display: none; }
+        #logout { display: none; }
+        #login { display: block; }      
+        body {
+          font-family: Verdana;
+          padding-right: 0;
+          padding-left: 0;
+        }
+         .fondoA {
+          background-color: #D7FED8;
+        }
+        p, span {        
+          font-size: 12px;
+        }
+        h1 {
+          color: #64A366;
+          padding-left: 0px;
+        }
+        #autor {
+          font-weight: bold;
+        }
+        #mensaje {        
+          color: #333;
+          font-size: 13px;
+          line-height: 1.38;
+          font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+        }
+        .contNew {
+          border-bottom: thin solid #ccc;
+        }
+        img {
+          padding: 5px;
+        }
+      </style>
+  </head>
+
+  <body>
+    <div id="fb-root"></div>
+
+    <!-- NAVBAR -->
+<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                  <a class="brand" href="#">FastSocial</a>
+                  <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="#" onClick="cerrarSesion();">Cerrar Sesion</a></li>
+                      <li><a href="#">Link</a></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li class="nav-header">Nav header</li>
+                          <li><a href="#">Separated link</a></li>
+                          <li><a href="#">One more separated link</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <form class="navbar-search pull-left" action="">
+                      <input type="text" class="search-query span2" placeholder="Search">
+                    </form>
+                    <ul class="nav pull-right">
+                      <li><a href="#">Link</a></li>
+                      <li class="divider-vertical"></li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Action</a></li>
+                          <li><a href="#">Another action</a></li>
+                          <li><a href="#">Something else here</a></li>
+                          <li class="divider"></li>
+                          <li><a href="#">Separated link</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+    <!-- FIN NAVBAR -->
+    
+    <!--
+    <div id="logout">
+      <p><button  onClick="FB.logout();">Cerrar Sesion</button></p>
+    </div>  
+    -->
+    <div id="login">
+      <p><button  onClick="loginUser();">Entrar</button></p>
+    </div>  
+
+    <div id="loading" align="center" style="display:none;">
+      <img src="img/loader.gif">
+    </div>
+
+    <div class="row-fluid fila" id="fila0" style="display:none">
+      <div class="span12 fondoA contNew">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12">
+                <div id="autor">
+                </div>
+                <img id="iconType" src="" class="img-circle" align="right">
+                <p id="mensaje">                  
+                </p>          
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div>    
+
+    <script type="text/javascript">
+      var c = 0;
+      function cargarNews(autor, mensaje, imgSrc) {
+        //console.log(autor +" "+ mensaje +" "+ imgSrc);
+        var klon = $( '#fila' + c );
+        var cloned = klon.clone(true);
+        cloned.attr('id', 'fila'+(++c) );
+        cloned.find("#autor").text(autor);
+        cloned.find("#mensaje").text(mensaje);
+        cloned.find("#iconType").attr("src", imgSrc);
+        cloned.attr("style", "visible:block");
+        $(cloned).insertAfter(klon);
+        $("#loading").hide();
+      }
+      function cerrarSesion() {
+        FB.logout();
+        location.reload();
+      }      
+    </script>
+
+  <script type="text/javascript">
+    window.fbAsyncInit = function() {
+      FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://localhost/socfast/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+
+        FB.Event.subscribe('auth.statusChange', handleStatusChange);
+      };
+
+      // Load the SDK Asynchronously
+      (function(d){
+         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement('script'); js.id = id; js.async = true;
+         js.src = "//connect.facebook.net/en_US/all.js";
+         ref.parentNode.insertBefore(js, ref);
+       }(document));
+
+      function loginUser() {
+        FB.login(function(response) { }, {scope:'read_stream'});     
+        }
+
+      function handleStatusChange(response) {
+          document.body.className = response.authResponse ? 'connected' : 'not_connected';
+          if (response.authResponse) {
+            //console.log(response);
+            testAPI();
+          }
+        }
+
+      function testAPI() {
+          //console.log('Welcome!  Fetching your information.... ');
+          FB.api(
+            '/me/home',
+            function(response) {
+            //console.log(response);
+              var len = response.data.length;
+              for (var i=0; i<len; i++) {
+                var mensaje = "";
+                var imgSmall = "";
+                var imgUrl = "";
+                if (typeof response.data[i].message !== "undefined") {
+                  mensaje = response.data[i].message;
+                  } else if (response.data[i].description !== "undefined") {
+                  mensaje = response.data[i].description;
+                  }
+
+                  //TYPE
+                if (response.data[i].type == "video" || response.data[i].type == "swf") {                     
+                  imgSmall = "img/video_48.png";
+                  imgUrl = response.data[i].source;
+                  if (response.data[i].name !== "undefined") {
+                    mensaje = response.data[i].name;
+                    }                      
+                  } else if (response.data[i].type == "photo") {
+                      imgSmall = "img/photo_48.png";
+                      imgUrl = response.data[i].link;
+                      } else if ( response.data[i].type == "link" ) {
+                        imgSmall = "img/link_48.png";
+                        imgUrl = response.data[i].link;
+                        }
+
+              cargarNews(response.data[i].from.name, mensaje, imgSmall);
+
+              };
+          });
+      }
+/*
+        function login() {
+          FB.login(function(response) {
+              if (response.authResponse) {
+                  alert('Logged in and accepted permissions!');
+              }
+          }, {scope:'read_stream'});          
+        }       
+        */         
+  </script>    
+
+  </body>
+</html>

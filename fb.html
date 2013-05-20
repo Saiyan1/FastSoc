@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <!--
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    -->
+      <meta name="viewport" 
+        content="initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <style type="text/css">
+      body {
+        font-family: Verdana;
+      }
+       .fondoA {
+        background-color: #ADCE6E;
+      }
+      p, span {        
+        font-size: 12px;
+      }
+      #autor {
+        font-weight: bold;
+      }
+      #mensaje {        
+        color: #333;
+        font-size: 13px;
+        line-height: 1.38;
+        font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+      }
+      .contNew {
+        border-bottom: thin solid #ccc;
+        min-height: 80px;
+      }
+    </style>
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="fb-root"></div>
+
+    <h1>FastSocial</h1>
+    <div class="row-fluid" id="fila0" style="display:none">
+      <div class="span12">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span12 fondoA contNew">
+                <span id="autor">
+                  Nombre
+                </span>
+                <br>
+                  <img id="iconType" src="" class="img-circle" align="left">                
+                <p id="mensaje">                       
+                  123
+                </p>                
+              </div>            
+            </div>          
+          </div>
+        </div>
+      </div>      
+    </div>
+    <input type="button" value="Crear Fila" onclick="replicar();"></input>
+    <input type="button" onclick="testAPI();" value="Ingresar"></input>
+    <!--
+    <div class="fb-login-button">Login with Facebook</div>
+    -->
+    <script type="text/javascript">
+      var c = 0;
+      function cargarNews(autor, mensaje, imgSrc) {
+        //console.log(autor +" "+ mensaje +" "+ imgSrc);
+        var klon = $( '#fila' + c );
+        var cloned = klon.clone(true);
+        cloned.attr('id', 'fila'+(++c) );
+        cloned.find("#autor").text(autor);
+        cloned.find("#mensaje").text(mensaje);
+        cloned.find("#iconType").attr("src", imgSrc);
+        cloned.attr("style", "visible:block");
+        $(cloned).insertAfter(klon);
+      }
+    </script>
+
+    <script type="text/javascript" src="js/jquery/jquery-1.9.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript">
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '116217758578406', // App ID
+            channelUrl : '//http://localhost/socfast/channel.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+          });
+
+          FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+              console.log("CONECTADO!");
+            } else if (response.status === 'not_authorized') {
+              login();
+            } else {
+              login();
+            }
+           });
+        };
+
+        function login() {
+          /*
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    testAPI();
+                } else {
+                    console.log("No has dado permisos");
+                    console.log(response);
+                }
+            });
+*/
+
+          FB.login(function(response) { 
+            /*
+              if (response.authResponse) {
+                  testAPI();
+              } else {
+                  console.log("No has dado permisos");
+                  console.log(response);
+              }  
+              */          
+              }, 
+            {scope:'read_stream'}
+            );
+        }
+
+        // Load the SDK Asynchronously
+        
+        (function(d){
+          var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement('script'); js.id = id; js.async = true;
+          js.src = "//connect.facebook.net/en_US/all.js";
+          ref.parentNode.insertBefore(js, ref);
+        }(document));  
+
+
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api(
+              '/me/home',
+              function(response) {
+              console.log(response);
+                for (var i = 0, len = response.data.length; i < len; i++) {                  
+                  var statusType= response.data[i].status_type;
+                  var mensaje = "";
+                  var imgSmall = "";
+                  var imgUrl = "";
+
+                  if (typeof statusType !== "undefined") {
+
+                      //STATUS
+                    if ( (statusType.indexOf("status") !== -1) ) {
+                      if (typeof response.data[i].message !== "undefined") {
+                        mensaje = response.data[i].message;
+                      }
+                    }
+                      //WALL_POST
+                    if ( (statusType.indexOf("wall_post") !== -1) ) {
+                       if (typeof response.data[i].message !== "undefined") {
+                        mensaje = response.data[i].message;
+                      }                     
+                    }                      
+
+                    if (typeof response.data[i].message !== "undefined") {
+                      mensaje = response.data[i].message;
+                    } else if (response.data[i].description !== "undefined") {
+                      mensaje = response.data[i].description;
+                    } else {
+                      mensaje = "";
+                    }
+                      //TYPE
+                    if (response.data[i].type == "video" || response.data[i].type == "swf") {                      
+                      imgSmall = "img/video_48.png";
+                      imgUrl = response.data[i].source;
+                      if (response.data[i].name !== "undefined") {
+                        mensaje = response.data[i].name;
+                      }                      
+                    } else if (response.data[i].type == "photo") {
+                      imgSmall = "img/photo_48.png";
+                      imgUrl = response.data[i].link;
+                    } else if ( response.data[i].type == "link" ) {
+                      imgSmall = "img/link_48.png";
+                      imgUrl = response.data[i].link;
+                    }                    
+                  }
+
+                  cargarNews(response.data[i].from.name, mensaje, imgSmall);
+
+                };
+            });
+        }
+/*
+        function login() {
+          FB.login(function(response) {
+              if (response.authResponse) {
+                  alert('Logged in and accepted permissions!');
+              }
+          }, {scope:'read_stream'});          
+        }       
+        */         
+  </script>    
+  </body>
+</html>
